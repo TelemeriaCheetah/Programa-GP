@@ -1,0 +1,214 @@
+QPushButton#carta_8
+{
+    border-image:url(:/new/prefix1/cartas/c8.png);
+}
+QPushButton#carta_8:hover
+{
+    border-image:url(:/new/prefix1/cartas/c8_hover.png);
+}
+QPushButton#carta_8:pressed
+{
+    border-image:url(:/new/prefix1/cartas/c8_select.png);
+}
+
+QPushButton#carta_3
+{
+    border-image:url(:/new/prefix1/cartas/c3.png);
+}
+QPushButton#carta_3:hover
+{
+    border-image:url(:/new/prefix1/cartas/c3_hover.png);
+}
+QPushButton#carta_3:pressed
+{
+    border-image:url(:/new/prefix1/cartas/c3_select.png);
+}
+
+
+QPushButton#carta_5
+{
+    border-image:url(:/new/prefix1/cartas/c5.png);
+}
+QPushButton#carta_5:hover
+{
+    border-image:url(:/new/prefix1/cartas/c5_hover.png);
+}
+QPushButton#carta_5:pressed
+{
+    border-image:url(:/new/prefix1/cartas/c5_select.png);
+}
+
+QPushButton#carta_13
+{
+    border-image:url(:/new/prefix1/cartas/c13.png);
+}
+QPushButton#carta_13:hover
+{
+    border-image:url(:/new/prefix1/cartas/c13_hover.png);
+}
+QPushButton#carta_13:pressed
+{
+    border-image:url(:/new/prefix1/cartas/c13_select.png);
+}
+
+QPushButton#carta_2
+{
+    border-image:url(:/new/prefix1/cartas/c2.png);
+}
+QPushButton#carta_2:hover
+{
+    border-image:url(:/new/prefix1/cartas/c2_hover.png);
+}
+QPushButton#carta_2:pressed
+{
+    border-image:url(:/new/prefix1/cartas/c2_select.png);
+}
+
+QPushButton#carta_1
+{
+    border-image:url(:/new/prefix1/cartas/c1.png);
+}
+QPushButton#carta_1:hover
+{
+    border-image:url(:/new/prefix1/cartas/c1_hover.png);
+}
+QPushButton#carta_1:pressed
+{
+    border-image:url(:/new/prefix1/cartas/c1_select.png);
+}
+
+QPushButton#carta_pi
+{
+    border-image:url(:/new/prefix1/cartas/cpi.png);
+}
+QPushButton#carta_pi:hover
+{
+    border-image:url(:/new/prefix1/cartas/cpi_hover.png);
+}
+QPushButton#carta_pi:pressed
+{
+    border-image:url(:/new/prefix1/cartas/cpi_select.png);
+}
+
+QPushButton#carta_s
+{
+    border-image:url(:/new/prefix1/cartas/cs.png);
+}
+QPushButton#carta_s:hover
+{
+    border-image:url(:/new/prefix1/cartas/cs_hover.png);
+}
+QPushButton#carta_s:pressed
+{
+    border-image:url(:/new/prefix1/cartas/cs_select.png);
+}
+
+QPushButton#btn_menu
+{
+    border-image:url(:/new/prefix1/buttons/menu.png);
+}
+QPushButton#btn_menu:hover
+{
+    border-image:url(:/new/prefix1/buttons/menu_hover.png);
+}
+QPushButton#btn_menu:pressed
+{
+    border-image:url(:/new/prefix1/buttons/menu_pressed.png);
+}
+
+QPushButton#btn_dashboard
+{
+    border-image:url(:/new/prefix1/buttons/dashboard.png);
+}
+QPushButton#btn_dashboard:hover
+{
+    border-image:url(:/new/prefix1/buttons/dashboard_hover.png);
+}
+QPushButton#btn_dashboard:pressed
+{
+    border-image:url(:/new/prefix1/buttons/dashboard_pressed.png);
+}
+
+QPushButton#btn_kanban
+{
+    border-image:url(:/new/prefix1/buttons/kanban.png);
+}
+QPushButton#btn_kanban:hover
+{
+    border-image:url(:/new/prefix1/buttons/kanban_hover.png);
+}
+QPushButton#btn_kanban:pressed
+{
+    border-image:url(:/new/prefix1/buttons/kanban_pressed.png);
+}
+
+QPushButton#btn_projeto
+{
+    border-image:url(:/new/prefix1/buttons/projeto.png);
+}
+QPushButton#btn_projeto:hover
+{
+    border-image:url(:/new/prefix1/buttons/projeto_hover.png);
+}
+QPushButton#btn_projeto:pressed
+{
+    border-image:url(:/new/prefix1/buttons/projeto_pressed.png);
+}
+
+QPushButton#btn_sair
+{
+    border-image:url(:/new/prefix1/buttons/sair.png);
+}
+QPushButton#btn_sair:hover
+{
+    border-image:url(:/new/prefix1/buttons/sair_hover.png);
+}
+QPushButton#btn_sair:pressed
+{
+    border-image:url(:/new/prefix1/buttons/sair_pressed.png);
+}
+QPushButton#btn_anuncios
+{
+    border-image:url(:/new/prefix1/buttons/anuncios.png);
+}
+QPushButton#btn_anuncios:hover
+{
+    border-image:url(:/new/prefix1/buttons/anuncios_hover.png);
+}
+QPushButton#btn_anuncios:pressed
+{
+    border-image:url(:/new/prefix1/buttons/anuncios_pressed.png);
+}
+
+QPushButton#btn_backlog
+{
+    border-image:url(:/new/prefix1/buttons/backlog.png);
+}
+QPushButton#btn_backlog:hover
+{
+    border-image:url(:/new/prefix1/buttons/backlog_hover.png);
+}
+QPushButton#btn_backlog:pressed
+{
+    border-image:url(:/new/prefix1/buttons/backlog_pressed.png);
+}
+
+
+QPushButton#btn_proximo
+{
+    border-image:url(:/new/prefix1/buttons/btn_prox.png);
+}
+QPushButton#btn_proximo:hover
+{
+    border-image:url(:/new/prefix1/buttons/btn_prox_hover.png);
+}
+QPushButton#btn_proximo:pressed
+{
+    border-image:url(:/new/prefix1/buttons/btn_prox_pressed.png);
+}
+
+QWidget#centralwidget
+{
+	border-image:url(:/new/prefix1/images/poker_background.png);
+}
+
