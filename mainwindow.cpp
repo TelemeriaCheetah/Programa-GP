@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
     esconde_ui(0);
     ui->btn_dashboard->setStyleSheet("border-image:url(:/new/prefix1/buttons/dashboard_pressed.png);");
     ui->centralwidget->setStyleSheet(estilo_normal+"QWidget#centralwidget{border-image:url(:/new/prefix1/images/dash_background.png);}");
+    inicializa_dashboard();
     reseta_carta();
 }
 
@@ -149,6 +150,8 @@ void MainWindow::esconde_ui(int i)
     ui->result_3->setVisible(i);
     ui->result_4->setVisible(i);
     ui->result_5->setVisible(i);
+    ui->indicador_progresso->setVisible(i);
+    ui->texto_tarefa_dashboard->setVisible(i);
     ui->btn_planejar->setVisible(i);
     ui->btn_adicionar_tarefa->setVisible(i);
     ui->text_at_tarefa->setVisible(i);
@@ -202,6 +205,39 @@ void MainWindow::inicializa_radio()
     ui->radio_player_3->setText(nomes[2]);
     ui->radio_player_4->setText(nomes[3]);
     ui->radio_player_5->setText(nomes[4]);
+}
+
+void MainWindow::inicializa_dashboard()
+{
+    QSqlQuery query;
+    esconde_ui(0);
+    ui->texto_tarefa_dashboard->setVisible(1);
+    QString texto_intro;
+    query.prepare("SELECT * FROM "+pz.getPokerTable()+"_sprint WHERE data between \'"+ui->texto_data->text()+"\' and \'"+ui->texto_data->text()+"\'");
+    query.exec();
+    int total =0, concluido =0, cont = 0;
+    while(query.next())
+    {
+        total+=query.value(3).toInt();
+        if(query.value(5).toInt())
+        {
+            concluido+=query.value(3).toInt();
+        }
+        cont++;
+    }
+    QString base_style = "color : rgb(241, 241, 241);font: 11pt \"Segoe UI\";\n";
+    ui->indicador_progresso->setVisible(1);
+    double porcentagem = ((double)concluido/(double)total)*100;
+    int img = porcentagem/10;
+    qDebug()<<"PORCENTAGEM = "<<porcentagem;
+    QString style_percent = "border-image:url(:/new/prefix1/animations/roda0"+QString::number(img)+".png);";
+    ui->indicador_progresso->setStyleSheet(base_style+style_percent);
+    ui->indicador_progresso->setText("               "+QString::number(porcentagem, 'g' , 2)+"%");
+    texto_intro = "\n\nNaN \n\nPontuação da sprint: "+QString::number(total)+" pontos\n\nData de início: "+ui->texto_data->text()+"\n\nTotal de tarefas: "+QString::number(cont)+"\n\nConcluidos: "+QString::number(concluido)+" pontos";
+
+    ui->texto_tarefa_dashboard->setText(texto_intro);
+    ui->btn_dashboard->setStyleSheet("border-image:url(:/new/prefix1/buttons/dashboard_pressed.png);");
+    ui->centralwidget->setStyleSheet(estilo_normal+"QWidget#centralwidget{border-image:url(:/new/prefix1/images/dash_background.png);}");
 }
 
 void MainWindow::on_btn_menu_clicked()
@@ -266,6 +302,23 @@ void MainWindow::temporizador()
     QSqlQuery query;
     int r[20];
     memset(r,0,sizeof(r));
+    query.prepare("SELECT * FROM "+pz.getPokerTable()+"_sprint WHERE story=:story");
+    query.bindValue(":story",story);
+
+    int responsavel = 0;
+    while (query.next())
+    {
+        responsavel = query.value(4).toInt();
+    }
+
+    query.prepare("SELECT * FROM users WHERE jogador=:story");
+    query.bindValue(":story",responsavel);
+
+    QString quem_faz;
+    while (query.next())
+    {
+        quem_faz = query.value(2).toString();
+    }
 
     query.prepare("SELECT * FROM "+pz.getPokerTable()+"_poker WHERE story=:story");
     query.bindValue(":story",story);
@@ -302,13 +355,53 @@ void MainWindow::temporizador()
         ui->result_4->setStyleSheet("border-image:url(:/new/prefix1/cartas/c"+QString::number(r[8])+".png);");
         ui->result_5->setStyleSheet("border-image:url(:/new/prefix1/cartas/c"+QString::number(r[10])+".png);");
         diferente = 0;
-        for(int i = 2 ; i <= (mostra*2)-2; i+=2)
+        int ajusta[5];
+        int j = 0;
+        for(int i = 2 ; i <= (mostra*2); i+=2)
+        {   
+            ajusta[j] = r[i];
+            j++;
+        }
+        int ref[5];
+        for(int i = 0 ; i <pz.getContagem() ; i++)
         {
-            if(r[i]!=r[i+2])
+            ref[i] = ajusta[i];
+        }
+        for(int i = 0 ; i < pz.getContagem() ; i++)
+        {
+            switch (ajusta[i])
+            {
+                case 1:
+                ajusta[i] = 1;
+                break;
+                case 2:
+                ajusta[i] = 2;
+                break;
+                case 3:
+                ajusta[i] = 3;
+                break;
+                case 5:
+                ajusta[i] = 4;
+                break;
+                case 8:
+                ajusta[i] = 5;
+                break;
+                case 13:
+                ajusta[i] = 6;
+                break;
+            }
+            qDebug()<<ajusta[i];
+        }
+        int nota_final=0;
+        for(int i = 0 ; i < pz.getContagem() -1; i++)
+        {
+            if(abs(ajusta[i]-ajusta[i+1])>1)
             {
                 diferente = 1;
                 break;
             }
+            if(ref[i]>nota_final)
+                nota_final=ref[i];
         }
 
         if(diferente)
@@ -318,14 +411,14 @@ void MainWindow::temporizador()
         }
         else
         {
-            query.prepare("UPDATE "+pz.getPokerTable()+"_sprint SET `pontuação`="+QString::number(r[2])+" WHERE story="+QString::number(story)+"");
+            query.prepare("UPDATE "+pz.getPokerTable()+"_sprint SET `pontuação`="+QString::number(nota_final)+" WHERE story="+QString::number(story)+"");
             query.exec();
 
             query.prepare("SELECT * FROM "+pz.getPokerTable()+"_sprint WHERE story="+QString::number(story)+"");
             query.exec();
             while (query.next())
             {
-                 ui->label_pontuacao->setText(query.value(3).toString());
+                 ui->label_pontuacao->setText("Pontuação: " + query.value(3).toString());
                  qDebug() << query.value(3).toString();
             }
             qDebug() << query.executedQuery();
@@ -374,9 +467,7 @@ void MainWindow::on_btn_backlog_clicked()
 
 void MainWindow::on_btn_dashboard_clicked()
 {
-    esconde_ui(0);
-    ui->btn_dashboard->setStyleSheet("border-image:url(:/new/prefix1/buttons/dashboard_pressed.png);");
-    ui->centralwidget->setStyleSheet(estilo_normal+"QWidget#centralwidget{border-image:url(:/new/prefix1/images/dash_background.png);}");
+    inicializa_dashboard();
 }
 
 void MainWindow::on_btn_kanban_clicked()
@@ -443,6 +534,7 @@ void MainWindow::on_btn_planejar_clicked()
 void MainWindow::on_texto_data_textEdited(const QString &arg1)
 {
     atualiza_tabela();
+    inicializa_dashboard();
 }
 
 void MainWindow::on_btn_adicionar_tarefa_clicked()

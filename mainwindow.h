@@ -70,6 +70,8 @@ private:
     void esconde_ui(int i);
     void atualiza_tabela();
     void inicializa_radio();
+    void inicializa_dashboard();
     QTimer *timer;
+
 };
 #endif // MAINWINDOW_H

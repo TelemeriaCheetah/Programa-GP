@@ -507,7 +507,7 @@ QPushButton#user_picture:pressed
         <string notr="true">QLabel 
 { 
 	color : rgb(241, 241, 241);
-	font: 17pt &quot;Segoe UI&quot;;
+	font: 14pt &quot;Segoe UI&quot;;
 }
 </string>
        </property>
@@ -529,7 +529,7 @@ QPushButton#user_picture:pressed
 </string>
          </property>
          <property name="text">
-          <string>Pontuação:</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -539,7 +539,7 @@ QPushButton#user_picture:pressed
           <string notr="true">QLabel 
 { 
 	color : rgb(241, 241, 241);
-	font: 20pt &quot;Segoe UI&quot;;
+	font: 14pt &quot;Segoe UI&quot;;
 }
 </string>
          </property>
@@ -1087,6 +1087,60 @@ QPushButton:pressed
      <string>RadioButton</string>
     </property>
    </widget>
+   <widget class="QLabel" name="texto_tarefa_dashboard">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>80</y>
+      <width>261</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel 
+{ 
+	color : rgb(241, 241, 241);
+	font: 11pt &quot;Segoe UI&quot;;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="indicador_progresso">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>150</y>
+      <width>144</width>
+      <height>149</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>144</width>
+      <height>149</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>144</width>
+      <height>149</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel 
+{ 
+	color : rgb(241, 241, 241);
+	font: 11pt &quot;Segoe UI&quot;;
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>layoutWidget</zorder>
    <zorder>frame</zorder>
    <zorder>label_3</zorder>
@@ -1105,6 +1159,8 @@ QPushButton:pressed
    <zorder>radio_player_3</zorder>
    <zorder>radio_player_4</zorder>
    <zorder>radio_player_5</zorder>
+   <zorder>texto_tarefa_dashboard</zorder>
+   <zorder>indicador_progresso</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

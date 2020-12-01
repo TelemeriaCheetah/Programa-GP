@@ -67,6 +67,16 @@
         <file>stylesheets/stylesheet.css</file>
         <file>stylesheets/stylesheet_404.css</file>
         <file>images/dash_background.png</file>
+        <file>animations/roda01.png</file>
+        <file>animations/roda00.png</file>
+        <file>animations/roda02.png</file>
+        <file>animations/roda03.png</file>
+        <file>animations/roda04.png</file>
+        <file>animations/roda05.png</file>
+        <file>animations/roda06.png</file>
+        <file>animations/roda07.png</file>
+        <file>animations/roda08.png</file>
+        <file>animations/roda09.png</file>
     </qresource>
     <qresource prefix="/">
         <file>images/dash_background.png</file>
