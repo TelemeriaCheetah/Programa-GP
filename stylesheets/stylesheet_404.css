@@ -206,9 +206,3 @@ QPushButton#btn_proximo:pressed
 {
     border-image:url(:/new/prefix1/buttons/btn_prox_pressed.png);
 }
-
-QWidget#centralwidget
-{
-        border-image:url(:/new/prefix1/images/404.png);
-}
-
