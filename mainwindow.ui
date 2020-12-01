@@ -433,14 +433,15 @@ QPushButton#user_picture:pressed
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>1150</x>
-      <y>660</y>
-      <width>112</width>
-      <height>16</height>
+      <x>790</x>
+      <y>650</y>
+      <width>461</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>ver 0.01 - CaioTBC</string>
+     <string>Build 0.02  2020-12-01  g++/qmake Debian GNU/Linux bullseye/sid x86_64
+5.9.0-4-amd64 Qt 5.15.2  caiotbc@gmail.com</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_alerta">
@@ -959,6 +960,133 @@ QPushButton:pressed
      </item>
     </layout>
    </widget>
+   <widget class="QTableView" name="tabela_tarefas">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>70</y>
+      <width>871</width>
+      <height>511</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="texto_data">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>20</y>
+      <width>126</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(24, 38, 48)</string>
+    </property>
+    <property name="text">
+     <string>2020-11-10</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="text_at_tarefa">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>600</y>
+      <width>431</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_adicionar_tarefa">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>600</y>
+      <width>161</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Adicionar tarefa</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_planejar">
+    <property name="geometry">
+     <rect>
+      <x>1079</x>
+      <y>360</y>
+      <width>141</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Planning Poker!</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radio_player_1">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>640</y>
+      <width>211</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radio_player_2">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>660</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radio_player_3">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>640</y>
+      <width>181</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radio_player_4">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>660</y>
+      <width>211</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radio_player_5">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>640</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
    <zorder>layoutWidget</zorder>
    <zorder>frame</zorder>
    <zorder>label_3</zorder>
@@ -967,6 +1095,16 @@ QPushButton:pressed
    <zorder>layoutWidget</zorder>
    <zorder>layoutWidget_2</zorder>
    <zorder>layoutWidget_3</zorder>
+   <zorder>tabela_tarefas</zorder>
+   <zorder>texto_data</zorder>
+   <zorder>text_at_tarefa</zorder>
+   <zorder>btn_adicionar_tarefa</zorder>
+   <zorder>btn_planejar</zorder>
+   <zorder>radio_player_1</zorder>
+   <zorder>radio_player_2</zorder>
+   <zorder>radio_player_3</zorder>
+   <zorder>radio_player_4</zorder>
+   <zorder>radio_player_5</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

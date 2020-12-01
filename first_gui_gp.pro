@@ -9,17 +9,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    backlog.cpp \
     dados_jogador.cpp \
     loginform.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    backlog.h \
     dados_jogador.h \
     loginform.h \
     mainwindow.h
 
 FORMS += \
+    backlog.ui \
     loginform.ui \
     mainwindow.ui \
 

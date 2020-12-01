@@ -6,7 +6,7 @@
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QtDebug>
-
+#define DEBUG 0
 
 Dados_jogador pz;
 int teste;
@@ -45,7 +45,16 @@ void loginForm::on_btn_login_clicked()
     pz.setJogador(-1);
     QString username = ui->username->text();
     QString password = ui->password->text();
-    if(password=="gerenciamento")
+    if(DEBUG)
+    {
+        pz.setJogador(20);
+        pz.setNick("mota");
+        pz.setNome("VInicius Motao");
+        pz.setSubequipe("elt");
+        pz.setPokerTable("elt");
+        password="gerenciamento";
+    }
+    if(password=="")
     {
         qDebug() << username;
         QSqlQuery query;

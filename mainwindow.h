@@ -53,6 +53,12 @@ private slots:
 
     void on_btn_sair_clicked();
 
+    void on_btn_planejar_clicked();
+
+    void on_texto_data_textEdited(const QString &arg1);
+
+    void on_btn_adicionar_tarefa_clicked();
+
 private:
     Ui::MainWindow *ui;
     void envia_sql(int carta);
@@ -61,6 +67,9 @@ private:
     void deleta_linha();
     void reseta_botoes();
     void erro404(int i);
+    void esconde_ui(int i);
+    void atualiza_tabela();
+    void inicializa_radio();
     QTimer *timer;
 };
 #endif // MAINWINDOW_H

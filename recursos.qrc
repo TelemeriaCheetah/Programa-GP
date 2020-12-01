@@ -66,5 +66,9 @@
         <file>images/404.png</file>
         <file>stylesheets/stylesheet.css</file>
         <file>stylesheets/stylesheet_404.css</file>
+        <file>images/dash_background.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>images/dash_background.png</file>
     </qresource>
 </RCC>

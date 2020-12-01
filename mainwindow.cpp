@@ -7,13 +7,17 @@
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QtDebug>
+#include "backlog.h"
 
 extern Dados_jogador pz;
 extern QString estilo_normal;
 extern QString estilo_404;
+int planejando_poker = 1;
+int fazendo_backlog = 0;
 int mostra = 0;
 int story = 0;
 int diferente = 0;
+int id_jogadores[5];
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,7 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->result_3->setVisible(false);
     ui->result_4->setVisible(false);
     ui->result_5->setVisible(false);
-    ui->btn_backlog->setStyleSheet("border-image:url(:/new/prefix1/buttons/backlog_pressed.png);");
+    esconde_ui(0);
+    ui->btn_dashboard->setStyleSheet("border-image:url(:/new/prefix1/buttons/dashboard_pressed.png);");
+    ui->centralwidget->setStyleSheet(estilo_normal+"QWidget#centralwidget{border-image:url(:/new/prefix1/images/dash_background.png);}");
     reseta_carta();
 }
 
@@ -108,7 +114,20 @@ void MainWindow::reseta_botoes()
 
 void MainWindow::erro404(int i)
 {
-    ui->centralwidget->setStyleSheet(i? estilo_normal : estilo_404);
+    ui->centralwidget->setStyleSheet(i? estilo_normal : estilo_normal+"QWidget#centralwidget{border-image:url(:/new/prefix1/images/404.png);}");
+    esconde_ui(i);
+}
+
+void MainWindow::esconde_ui(int i)
+{
+    planejando_poker=0;
+    fazendo_backlog=0;
+    ui->radio_player_1->setVisible(i);
+    ui->radio_player_2->setVisible(i);
+    ui->radio_player_3->setVisible(i);
+    ui->radio_player_4->setVisible(i);
+    ui->radio_player_5->setVisible(i);
+    ui->tabela_tarefas->setVisible(i);
     ui->edit_tarefa->setVisible(i);
     ui->label_alerta->setVisible(i);
     ui->label_pontuacao->setVisible(i);
@@ -130,7 +149,59 @@ void MainWindow::erro404(int i)
     ui->result_3->setVisible(i);
     ui->result_4->setVisible(i);
     ui->result_5->setVisible(i);
+    ui->btn_planejar->setVisible(i);
+    ui->btn_adicionar_tarefa->setVisible(i);
+    ui->text_at_tarefa->setVisible(i);
+    //ui->text_responsavel_tarefa->setVisible(i);
     reseta_botoes();
+}
+
+void MainWindow::atualiza_tabela()
+{
+    QSqlQuery query;
+    if(ui->texto_data->text()=="*")
+        query.prepare("SELECT * FROM "+pz.getPokerTable()+"_sprint");
+    else
+        query.prepare("SELECT * FROM "+pz.getPokerTable()+"_sprint WHERE data between \'"+ui->texto_data->text()+"\' and \'"+ui->texto_data->text()+"\'");
+    query.exec();
+    qDebug() << query.executedQuery();
+
+    QSqlQueryModel *modal = new QSqlQueryModel();
+
+    modal->setQuery(query);
+    ui->tabela_tarefas->setModel(modal);
+
+}
+
+void MainWindow::inicializa_radio()
+{
+    if(fazendo_backlog)
+    {
+        ui->radio_player_1->setVisible((pz.getContagem() > 0 ? true : false));
+        ui->radio_player_2->setVisible((pz.getContagem()-1 > 0 ? true : false));
+        ui->radio_player_3->setVisible((pz.getContagem()-2 > 0 ? true : false));
+        ui->radio_player_4->setVisible((pz.getContagem()-3 > 0 ? true : false));
+        ui->radio_player_5->setVisible((pz.getContagem()-4 > 0 ? true : false));
+    }
+    QSqlQuery query;
+    query.prepare("SELECT * FROM users WHERE role=:story");
+    query.bindValue(":story",pz.getSubequipe());
+    query.exec();
+    qDebug() << query.executedQuery();
+    QString nomes[5];
+    int i =0;
+    while (query.next())
+    {
+        nomes[i] = query.value(2).toString();
+        id_jogadores[i] = query.value(0).toInt();
+        //qDebug() << query.value(2).toString();
+        i++;
+    }
+    ui->radio_player_1->setText(nomes[0]);
+    ui->radio_player_2->setText(nomes[1]);
+    ui->radio_player_3->setText(nomes[2]);
+    ui->radio_player_4->setText(nomes[3]);
+    ui->radio_player_5->setText(nomes[4]);
 }
 
 void MainWindow::on_btn_menu_clicked()
@@ -213,11 +284,14 @@ void MainWindow::temporizador()
         qDebug() << query.value(3).toInt();
         qDebug() <<mostra;*/
     }
-    ui->result_1->setVisible((mostra > 0 ? true : false));
-    ui->result_2->setVisible((mostra-1 > 0 ? true : false));
-    ui->result_3->setVisible((mostra-2 > 0 ? true : false));
-    ui->result_4->setVisible((mostra-3 > 0 ? true : false));
-    ui->result_5->setVisible((mostra-4 > 0 ? true : false));
+    if(planejando_poker)
+    {
+        ui->result_1->setVisible((mostra > 0 ? true : false));
+        ui->result_2->setVisible((mostra-1 > 0 ? true : false));
+        ui->result_3->setVisible((mostra-2 > 0 ? true : false));
+        ui->result_4->setVisible((mostra-3 > 0 ? true : false));
+        ui->result_5->setVisible((mostra-4 > 0 ? true : false));
+    }
 
     if(mostra==pz.getContagem())
     {
@@ -281,19 +355,37 @@ void MainWindow::on_btn_proximo_clicked()
 
 void MainWindow::on_btn_backlog_clicked()
 {
-    erro404(1);
+
+    ui->centralwidget->setStyleSheet(estilo_normal);
+    //erro404(1);
+    esconde_ui(0);
+    //planejando_poker=1;
+    ui->title->setVisible(1);
+    ui->tabela_tarefas->setVisible(1);
+    ui->btn_planejar->setVisible(1);
+    ui->btn_adicionar_tarefa->setVisible(1);
+    ui->text_at_tarefa->setVisible(1);
+    atualiza_tabela();
+    ui->title->setText("Backlog");
     ui->btn_backlog->setStyleSheet("border-image:url(:/new/prefix1/buttons/backlog_pressed.png);");
+    fazendo_backlog=1;
+    inicializa_radio();
 }
 
 void MainWindow::on_btn_dashboard_clicked()
 {
-    erro404(0);
+    esconde_ui(0);
     ui->btn_dashboard->setStyleSheet("border-image:url(:/new/prefix1/buttons/dashboard_pressed.png);");
+    ui->centralwidget->setStyleSheet(estilo_normal+"QWidget#centralwidget{border-image:url(:/new/prefix1/images/dash_background.png);}");
 }
 
 void MainWindow::on_btn_kanban_clicked()
 {
-    erro404(0);
+    //erro404(0);
+    Backlog *janela;
+    janela = new Backlog(this);
+    hide();
+    janela -> show();
     ui->btn_kanban->setStyleSheet("border-image:url(:/new/prefix1/buttons/kanban_pressed.png);");
 }
 
@@ -313,4 +405,75 @@ void MainWindow::on_btn_sair_clicked()
 {
     erro404(0);
     ui->btn_sair->setStyleSheet("border-image:url(:/new/prefix1/buttons/sair_pressed.png);");
+}
+
+void MainWindow::on_btn_planejar_clicked()
+{
+    QModelIndexList selection = ui->tabela_tarefas->selectionModel()->selectedRows();
+    QString tarefa_certa;
+    for(int i=0; i< selection.count(); i++)
+    {
+        QModelIndex index = selection.at(i);
+        //qDebug() << index.row();
+        tarefa_certa = ui->tabela_tarefas->model()->data(ui->tabela_tarefas->model()->index(index.row(),0)).toString();
+        qDebug() << tarefa_certa;
+    }
+    esconde_ui(0);
+    ui->edit_tarefa->setVisible(1);
+    ui->label_alerta->setVisible(1);
+    ui->label_pontuacao->setVisible(1);
+    ui->label_pontuacao_2->setVisible(1);
+    ui->label_tarefa->setVisible(1);
+    ui->title->setVisible(1);
+    ui->btn_proximo->setVisible(1);
+    ui->btn_atualiza->setVisible(1);
+    ui->carta_1->setVisible(1);
+    ui->carta_2->setVisible(1);
+    ui->carta_3->setVisible(1);
+    ui->carta_5->setVisible(1);
+    ui->carta_8->setVisible(1);
+    ui->carta_13->setVisible(1);
+    ui->carta_pi->setVisible(1);
+    ui->carta_s->setVisible(1);
+    planejando_poker=1;
+    ui->edit_tarefa->setText(tarefa_certa);
+    atualiza();
+}
+
+void MainWindow::on_texto_data_textEdited(const QString &arg1)
+{
+    atualiza_tabela();
+}
+
+void MainWindow::on_btn_adicionar_tarefa_clicked()
+{
+    QSqlQuery query;
+    query.prepare("SELECT * FROM "+pz.getPokerTable()+"_sprint");
+    query.exec();
+    int maior = 0;
+    while (query.next())
+    {
+        if(query.value(0).toInt()>maior)
+            maior=query.value(0).toInt();
+        qDebug()<<maior;
+    }
+    int id_certo =0 ;
+    if(ui->radio_player_1->isChecked())
+        id_certo = id_jogadores[0];
+    if(ui->radio_player_2->isChecked())
+        id_certo = id_jogadores[1];
+    if(ui->radio_player_3->isChecked())
+        id_certo = id_jogadores[2];
+    if(ui->radio_player_4->isChecked())
+        id_certo = id_jogadores[3];
+    if(ui->radio_player_5->isChecked())
+        id_certo = id_jogadores[4];
+
+
+    query.prepare("INSERT INTO "+pz.getPokerTable()+"_sprint (story,descrição,data,pontuação,responsável,estado) VALUES (\'"+QString::number(maior+1)+"\',\'"+ui->text_at_tarefa->text()+"\',\'"+ui->texto_data->text()+"\',\'-1\',\'"+QString::number(id_certo)+"\',\'0\')");
+
+    query.exec();
+    atualiza();
+    atualiza_tabela();
+     qDebug() << query.executedQuery();
 }
